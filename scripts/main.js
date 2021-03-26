@@ -17,7 +17,7 @@ const applicationElement = document.querySelector("#ldsnacks");
 
 //login/register listeners
 applicationElement.addEventListener("click", event => {
-	console.log("event: ", event.target.id)
+	console.log("event: ", event.target)
 	event.preventDefault();
 	if (event.target.id === "login__submit") {
 		//collect all the details into an object

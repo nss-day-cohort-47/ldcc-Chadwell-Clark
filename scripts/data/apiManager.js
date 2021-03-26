@@ -70,7 +70,17 @@ export const getSnacks = () => {
 export const getSingleSnack = (snackId) => {
 	return fetch(`${apiURL}/snacks/${snackId}?_expand=type&_expand=season&_expand=inFlavor&_expand=shape`)
 	.then(response => response.json())
-	// .then(parsed => {
-	// 	console.log("get snack", parsed);
-	// })
+	.then(parsedSnack => {
+		 return getToppings(snackId).then((toppings) => {
+			// console.log("toppings", toppings)
+			parsedSnack.toppings= toppings;
+			console.log("snack w toppings", parsedSnack);
+			return parsedSnack;
+    });
+	})
+}
+
+export const getToppings = (snackId) => {
+	return fetch(`${apiURL}/snackToppings?snackId=${snackId}&_expand=topping`)
+	.then(response => response.json())
 }

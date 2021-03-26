@@ -125,6 +125,9 @@ const startLDSnacks = () => {
 	applicationElement.innerHTML += `<div id="mainContent"></div>`;
 	showSnackList();
 	showFooter();
+	const user = getLoggedInUser();
+	console.log(user)
+	
 
 }
 

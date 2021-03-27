@@ -25,7 +25,8 @@ export const NavBar = () => {
 		</li>
 	</ul>
 	</div>` : ""
-
+	//   ***  Check if logged in user is admin and show add a type button if true
+	//   ***  and no add a type button if not admin  
 	const addTypeButton = getLoggedInUser().admin ? `
 	<nav class="navbar navbar-light"">
 		<div class="container-fluid">

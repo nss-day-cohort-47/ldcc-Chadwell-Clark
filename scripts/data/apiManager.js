@@ -71,7 +71,7 @@ export const getSingleSnack = (snackId) => {
 	return fetch(`${apiURL}/snacks/${snackId}?_expand=type&_expand=season&_expand=inFlavor&_expand=shape`)
 	.then(response => response.json())
 	.then(parsedSnack => {
-		 return getToppings(snackId).then((toppings) => {
+		 return getSnackToppings(snackId).then((toppings) => {
 			// console.log("toppings", toppings)
 			parsedSnack.toppings= toppings;
 			console.log("snack w toppings", parsedSnack);
@@ -80,7 +80,28 @@ export const getSingleSnack = (snackId) => {
 	})
 }
 
-export const getToppings = (snackId) => {
+export const getSnackToppings = (snackId) => {
 	return fetch(`${apiURL}/snackToppings?snackId=${snackId}&_expand=topping`)
 	.then(response => response.json())
 }
+
+let toppingCollection = [];
+
+export const useToppingCollection = () => {
+  //Best practice: we don't want to alter the original state, so
+  //make a copy of it and then return it
+  //the spread operator makes quick work
+  const toppingCollectionCopy = [...toppingCollection];
+  return toppingCollectionCopy;
+};
+
+export const getToppings = () => {
+  return fetch(
+    `${apiURL}/toppings`
+  ).then((response) => response.json())
+  .then((parsedResponse) =>  {
+	  toppingCollection = parsedResponse;
+	  return parsedResponse;
+  })
+};
+

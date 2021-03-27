@@ -1,6 +1,13 @@
 import { getLoggedInUser } from "../data/apiManager.js"
 
 export const NavBar = () => {
+// 	getToppings().then((toppings) => {
+//     toppings.map((topping) => {
+//       toppingSelect += `<option value="${topping.id}">${topping.name}<option>`;
+//     });
+//     console.log(toppings);
+//     return toppings;
+//   });
 	//only show navItems and addTypeButton if user is logged in
 	
 	const navItems = getLoggedInUser().id ? `
@@ -13,7 +20,7 @@ export const NavBar = () => {
 			<button class="btn btn-info" type="button" id="allSnacks">All Snacks</button>
 		</li>
 		<li class="nav-item ms-1">
-			<select class="form-select form-select btn-info" aria-label="Select A Topping">
+			<select class="form-select topping-select btn-info" aria-label="Select A Topping">
 				<option selected>Select A Topping</option>
 				<option value="1">One</option>
 				<option value="2">Two</option>

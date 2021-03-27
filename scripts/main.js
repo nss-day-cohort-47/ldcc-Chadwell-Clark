@@ -8,7 +8,7 @@ import { SnackDetails } from "./snacks/SnackDetails.js";
 import { Footer } from "./nav/Footer.js";
 import {
 	logoutUser, setLoggedInUser, loginUser, registerUser, getLoggedInUser,
-	getSnacks, getSingleSnack
+	getSnacks, getSingleSnack, getToppings
 } from "./data/apiManager.js";
 
 
@@ -81,10 +81,22 @@ applicationElement.addEventListener("click", event => {
 	}
 })
 
+applicationElement.addEventListener("change", event => {
+	event.preventDefault();
+	 const toppingSelect = document.querySelector(".topping-select")
+	console.log(event.target.value) 
+	if(event.target.value === "1") {
+		//select topping which filter all snacks with that topping on it and run snacklist on array
+		
+	}
+})
+
 const showDetails = (snackObj) => {
 	const listElement = document.querySelector("#mainContent");
 	listElement.innerHTML = SnackDetails(snackObj);
 }
+
+
 //end snack listeners
 
 const checkForUser = () => {

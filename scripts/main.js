@@ -8,7 +8,7 @@ import { SnackDetails } from "./snacks/SnackDetails.js";
 import { Footer } from "./nav/Footer.js";
 import {
 	logoutUser, setLoggedInUser, loginUser, registerUser, getLoggedInUser,
-	getSnacks, getSingleSnack, getToppings
+	getSnacks, getSingleSnack, getToppings, setType
 } from "./data/apiManager.js";
 
 
@@ -91,6 +91,20 @@ applicationElement.addEventListener("change", event => {
 	}
 })
 
+applicationElement.addEventListener("click", event => {
+	event.preventDefault();
+	if (event.target.id === "addTypeBtn") {
+	let newType = prompt("Please add a new type of snack: ");
+		const typeObject = {
+			name: newType,
+		};
+		setType(typeObject)
+		.then(response => {
+			console.log("Add Type JSON Response: ",response )
+		})
+  }
+
+})
 const showDetails = (snackObj) => {
 	const listElement = document.querySelector("#mainContent");
 	listElement.innerHTML = SnackDetails(snackObj);

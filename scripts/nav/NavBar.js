@@ -1,16 +1,25 @@
-import { getLoggedInUser } from "../data/apiManager.js"
+import { getLoggedInUser, getToppings, useToppingCollection } from "../data/apiManager.js"
 
+let toppingSelect = "";
+
+let selectToppings = ""
 export const NavBar = () => {
-// 	getToppings().then((toppings) => {
-//     toppings.map((topping) => {
-//       toppingSelect += `<option value="${topping.id}">${topping.name}<option>`;
-//     });
-//     console.log(toppings);
-//     return toppings;
-//   });
+	
+	
+	getToppings().then((toppings) => {
+		console.log("parsed", toppings)
+	toppings.map((topping) => 
+	 toppingSelect += `<option value="${topping.id}">${topping.name}<option>`
+	);
+	console.log("toppingSelect",toppingSelect)
+	selectToppings = toppingSelect
+	console.log("selectToppings", selectToppings)
+	return toppingSelect;
+	})
 	//only show navItems and addTypeButton if user is logged in
 	
-	const navItems = getLoggedInUser().id ? `
+	const navItems = getLoggedInUser().id
+    ? `
 	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -21,23 +30,22 @@ export const NavBar = () => {
 		</li>
 		<li class="nav-item ms-1">
 			<select class="form-select topping-select btn-info" aria-label="Select A Topping">
-				<option selected>Select A Topping</option>
-				<option value="1">One</option>
-				<option value="2">Two</option>
-				<option value="3">Three</option>
+			<option selected>Select A Topping</option>
+				${selectToppings}
 			</select>
 		</li>
 		<li class="nav-item ms-1">
 			<button class="btn btn-info" type="button" id="logout">Logout</button>
 		</li>
 	</ul>
-	</div>` : ""
+	</div>`
+    : "";
 	//   ***  Check if logged in user is admin and show add a type button if true
 	//   ***  and no add a type button if not admin  
 	const addTypeButton = getLoggedInUser().admin ? `
 	<nav class="navbar navbar-light"">
 		<div class="container-fluid">
-			<button class="btn btn-outline-primary" type="button">Add A Type</button>
+			<button id="addTypeBtn" class="btn btn-outline-primary" type="button">Add A Type</button>
 		
 		</div>
 	</nav>` : ""

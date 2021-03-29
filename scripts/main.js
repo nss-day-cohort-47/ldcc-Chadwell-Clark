@@ -3,6 +3,7 @@ console.log('yum, yum, yum');
 import { LoginForm } from "./auth/LoginForm.js";
 import { RegisterForm } from "./auth/RegisterForm.js";
 import { NavBar } from "./nav/NavBar.js";
+import { SelectToppings } from "./nav/SelectToppings.js";
 import { SnackList } from "./snacks/SnackList.js";
 import { SnackDetails } from "./snacks/SnackDetails.js";
 import { Footer } from "./nav/Footer.js";
@@ -82,9 +83,10 @@ applicationElement.addEventListener("click", event => {
 })
 
 applicationElement.addEventListener("change", event => {
-	event.preventDefault();
+	// event.preventDefault();
 	 const toppingSelect = document.querySelector(".topping-select")
-	console.log(event.target.value) 
+	 const toppingValue = event.target.value
+	 console.log(toppingValue) 
 	if(event.target.value === "1") {
 		//select topping which filter all snacks with that topping on it and run snacklist on array
 		
@@ -132,6 +134,8 @@ const showLoginRegister = () => {
 
 const showNavBar = () => {
 	applicationElement.innerHTML += NavBar();
+	
+
 }
 
 const showSnackList = () => {
@@ -143,18 +147,19 @@ const showSnackList = () => {
 
 const showFooter = () => {
 	applicationElement.innerHTML += Footer();
+	console.log("footer")
 }
 
 const startLDSnacks = () => {
 	applicationElement.innerHTML = "";
-	showNavBar();
+	showNavBar()
 	applicationElement.innerHTML += `<div id="mainContent"></div>`;
+	
 	showSnackList();
 	showFooter();
-	const user = getLoggedInUser();
-	console.log(user)
-	
-
+	// const user = getLoggedInUser();
+	// console.log(user)
+	SelectToppings();
 }
 
 checkForUser();

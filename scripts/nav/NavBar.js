@@ -1,21 +1,8 @@
 import { getLoggedInUser, getToppings, useToppingCollection } from "../data/apiManager.js"
 
-let toppingSelect = "";
-
-let selectToppings = ""
 export const NavBar = () => {
 	
 	
-	getToppings().then((toppings) => {
-		console.log("parsed", toppings)
-	toppings.map((topping) => 
-	 toppingSelect += `<option value="${topping.id}">${topping.name}<option>`
-	);
-	console.log("toppingSelect",toppingSelect)
-	selectToppings = toppingSelect
-	console.log("selectToppings", selectToppings)
-	return toppingSelect;
-	})
 	//only show navItems and addTypeButton if user is logged in
 	
 	const navItems = getLoggedInUser().id
@@ -29,9 +16,11 @@ export const NavBar = () => {
 			<button class="btn btn-info" type="button" id="allSnacks">All Snacks</button>
 		</li>
 		<li class="nav-item ms-1">
-			<select class="form-select topping-select btn-info" aria-label="Select A Topping">
-			<option selected>Select A Topping</option>
-				${selectToppings}
+			<select id="topping-Select" class="form-select topping-select btn-info" aria-label="Select A Topping">
+			<option>Select A Topping</option>
+			
+		
+				
 			</select>
 		</li>
 		<li class="nav-item ms-1">
@@ -49,8 +38,8 @@ export const NavBar = () => {
 		
 		</div>
 	</nav>` : ""
-
-	return `
+	
+	return  `
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   		<div class="container-fluid">
 		  <span class="navbar-brand mb-0 h1">LDCC
@@ -61,4 +50,5 @@ export const NavBar = () => {
 	</nav>
 	${addTypeButton}
 	`
+	
 }

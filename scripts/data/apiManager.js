@@ -88,9 +88,6 @@ export const getSnackToppings = (snackId) => {
 let toppingCollection = [];
 
 export const useToppingCollection = () => {
-  //Best practice: we don't want to alter the original state, so
-  //make a copy of it and then return it
-  //the spread operator makes quick work
   const toppingCollectionCopy = [...toppingCollection];
   return toppingCollectionCopy;
 };
@@ -104,4 +101,14 @@ export const getToppings = () => {
 	  return parsedResponse;
   })
 };
+
+export const setType = (typeObj) => {
+	return fetch(`${apiURL}/types`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(typeObj),
+	}).then(response => response.json())
+}
 

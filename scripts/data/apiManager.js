@@ -81,8 +81,14 @@ export const getSingleSnack = (snackId) => {
 }
 
 export const getSnackToppings = (snackId) => {
+	if (snackId) {
 	return fetch(`${apiURL}/snackToppings?snackId=${snackId}&_expand=topping`)
 	.then(response => response.json())
+} else {
+	return fetch(
+    `${apiURL}/snackToppings`
+  ).then((response) => response.json());
+}
 }
 
 let toppingCollection = [];

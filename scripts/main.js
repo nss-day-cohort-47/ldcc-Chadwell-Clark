@@ -114,14 +114,19 @@ applicationElement.addEventListener("click", (event) => {
   event.preventDefault();
   if (event.target.id === "addTypeBtn") {
     let newType = prompt("Please add a new type of snack: ");
+	if (newType === "" || newType === null) {
+
+	} else {
+
     const typeObject = {
       name: newType,
     };
     setType(typeObject).then((response) => {
       console.log("Add Type JSON Response: ", response);
     });
-  }
+  }}
 });
+
 const showDetails = (snackObj) => {
   const listElement = document.querySelector("#mainContent");
   listElement.innerHTML = SnackDetails(snackObj);

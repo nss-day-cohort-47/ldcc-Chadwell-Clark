@@ -6,6 +6,7 @@ import { NavBar } from "./nav/NavBar.js";
 import { SelectToppings } from "./nav/SelectToppings.js";
 import { SnackList } from "./snacks/SnackList.js";
 import { SnackDetails } from "./snacks/SnackDetails.js";
+import { EditSnack } from "./snacks/EditSnack.js"
 import { Footer } from "./nav/Footer.js";
 import {
   logoutUser,
@@ -81,31 +82,37 @@ applicationElement.addEventListener("click", (event) => {
 
 applicationElement.addEventListener("click", (event) => {
   event.preventDefault();
+
+  if (event.target.id.startsWith("editcake")) {
+    const snackId = event.target.id.split("__")[1];
+    getSingleSnack(snackId).then((response) => {
+      console.log(response);
+      showEdit(response);
+    });
+  }
+});
+
+
+applicationElement.addEventListener("click", (event) => {
+  event.preventDefault();
   if (event.target.id === "allSnacks") {
     showSnackList();
   }
 });
 
 applicationElement.addEventListener("change", (event) => {
-
   const toppingValue = event.target.value;
-//   console.log(toppingValue)
   const snacks = useSnackCollection();
-//   console.log("snacks", snacks)
   let filteredSnacks = [];
   getSnackToppings().then((snackTopping) => {
-    // console.log(snackTopping);
 	snackTopping.forEach(item => {
-		// console.log(item, item.toppingId, item.snackId, toppingValue)
 		if(item.toppingId === parseInt(toppingValue)) {
 			let snack = item.snackId
 			filteredSnacks.push(snacks[snack - 1])
-			// console.log("filtered snacks by topping",filteredSnacks)
 			const listElement = document.querySelector("#mainContent");
-			listElement.innerHTML = SnackList(filteredSnacks);
+			listElement.innerHTML = SnackList(filteredSnacks, checkForAdmin());
 		}
 	})
-    
     });
   });
 
@@ -115,9 +122,7 @@ applicationElement.addEventListener("click", (event) => {
   if (event.target.id === "addTypeBtn") {
     let newType = prompt("Please add a new type of snack: ");
 	if (newType === "" || newType === null) {
-
 	} else {
-
     const typeObject = {
       name: newType,
     };
@@ -129,7 +134,12 @@ applicationElement.addEventListener("click", (event) => {
 
 const showDetails = (snackObj) => {
   const listElement = document.querySelector("#mainContent");
-  listElement.innerHTML = SnackDetails(snackObj);
+  listElement.innerHTML = SnackDetails(snackObj, checkForAdmin());
+};
+
+const showEdit = (snackObj) => {
+  const listElement = document.querySelector("#mainContent");
+  listElement.innerHTML = EditSnack(snackObj);
 };
 
 //end snack listeners
@@ -146,6 +156,12 @@ const checkForUser = () => {
   }
 };
 
+const checkForAdmin = () => {
+	const user = getLoggedInUser();
+  let disabled = user.admin?"":"disabled"
+  return disabled
+}
+
 const showLoginRegister = () => {
   //template strings can be used here too
   applicationElement.innerHTML += `${LoginForm()} <hr/> <hr/> ${RegisterForm()}`;
@@ -158,7 +174,7 @@ const showNavBar = () => {
 const showSnackList = () => {
   getSnacks().then((allSnacks) => {
     const listElement = document.querySelector("#mainContent");
-    listElement.innerHTML = SnackList(allSnacks);
+    listElement.innerHTML = SnackList(allSnacks, checkForAdmin());
   });
 };
 
@@ -174,6 +190,7 @@ const startLDSnacks = () => {
 
   showSnackList();
   showFooter();
+  
   // const user = getLoggedInUser();
   // console.log(user)
   SelectToppings();

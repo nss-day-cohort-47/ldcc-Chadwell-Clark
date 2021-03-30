@@ -31,13 +31,17 @@ export const NavBar = () => {
     : "";
 	//   ***  Check if logged in user is admin and show add a type button if true
 	//   ***  and no add a type button if not admin  
-	const addTypeButton = getLoggedInUser().admin ? `
+	const addTypeButton = getLoggedInUser().admin
+    ? `
 	<nav class="navbar navbar-light"">
 		<div class="container-fluid">
 			<button id="addTypeBtn" class="btn btn-outline-primary" type="button">Add A Type</button>
+			<button id="addSnackBtn" class="btn btn-outline-primary" type="button">Add A Snack</button>
+			<button id="addToppingBtn" class="btn btn-outline-primary" type="button">Add A Topping</button>
 		
 		</div>
-	</nav>` : ""
+	</nav>`
+    : "";
 	
 	return  `
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">

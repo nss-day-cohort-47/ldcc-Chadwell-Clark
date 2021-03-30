@@ -1,13 +1,6 @@
-import { getLoggedInUser } from "../data/apiManager.js";
-let disabled = "";
-export const SnackDetails = (snackObject) => {
-	const user = getLoggedInUser();
-	console.log("snack details user", user)
-	if (user.admin) {
-		disabled=""
-	} else {
-		disabled = "disabled"
-	}
+
+export const SnackDetails = (snackObject, checkForAdmin) => {
+
 
 	return `
 	<div class="col">
@@ -33,8 +26,8 @@ export const SnackDetails = (snackObject) => {
 			  	
 				<div class="d-flex justify-content-between align-items-center">
 					<div class="btn-group">
-					<button type="button" class="btn btn-sm btn-outline-secondary" id="editcake__${snackObject.id}" ${disabled}>Edit</button>
-					<button type="button" class="btn btn-sm btn-outline-secondary" id="deletecake__${snackObject.id}" ${disabled}>Delete</button>
+					<button type="button" class="btn btn-sm btn-outline-secondary" id="editcake__${snackObject.id}" ${checkForAdmin}>Edit</button>
+					<button type="button" class="btn btn-sm btn-outline-secondary" id="deletecake__${snackObject.id}" ${checkForAdmin}>Delete</button>
 					</div>
                 	<small class="text-muted">Count: ${snackObject.count}</small>
               	</div>

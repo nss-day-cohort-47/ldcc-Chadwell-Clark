@@ -1,4 +1,4 @@
-export const SnackCard = (snackObject) => {
+export const SnackCard = (snackObject,checkForAdmin) => {
 	return `
 	<div class="col">
 		<div class="card shadow-sm">
@@ -9,7 +9,7 @@ export const SnackCard = (snackObject) => {
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary" id="detailscake__${snackObject.id}">Details</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" id="deletecake__${snackObject.id}" disabled>Delete</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" id="deletecake__${snackObject.id}" ${checkForAdmin}>Delete</button>
                 </div>
                 <small class="text-muted">Count: ${snackObject.count}</small>
               </div>
